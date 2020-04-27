@@ -158,17 +158,7 @@ ggplot(data = mpg) +
 
 ![](WeekApril20Problems_files/figure-html/unnamed-chunk-9-2.png)<!-- -->
 
-4. Take the first faceted plot in this section:
-
-```r
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_wrap(~ class, nrow = 2)
-```
-
-![](WeekApril20Problems_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
-
-What are the advantages to using faceting instead of the colour aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?
+4. Take the first faceted plot in this section: What are the advantages to using faceting instead of the colour aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?
     + Faceting makes it more clear to see the differences between within a group as each class is separated into a smaller plot.
     + However, it can be overwhelming if there are a large number of different classes, and you cannot see how the data overlaps. 
 
@@ -198,7 +188,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
 ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-![](WeekApril20Problems_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](WeekApril20Problems_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 3. What does show.legend = FALSE do? What happens if you remove it?
 Why do you think I used it earlier in the chapter?
@@ -212,31 +202,6 @@ Why do you think I used it earlier in the chapter?
 
 5. Will these two graphs look different? Why/why not?
     + Both the graphs are the same, because they plot the same data using the same two geoms. The first one is simply assigning the graphing technique to data, while the second assigns the data to each graphing technique 
-  
-
-```r
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point() + 
-  geom_smooth()
-```
-
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-```
-
-![](WeekApril20Problems_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
-
-```r
-ggplot() + 
-  geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
-```
-
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-```
-
-![](WeekApril20Problems_files/figure-html/unnamed-chunk-12-2.png)<!-- -->
 
 6. Recreate the R code necessary to generate the following graphs.
 
@@ -250,7 +215,7 @@ ggplot() +
 ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-![](WeekApril20Problems_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](WeekApril20Problems_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 ```r
 ggplot() + 
@@ -262,7 +227,7 @@ ggplot() +
 ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-![](WeekApril20Problems_files/figure-html/unnamed-chunk-13-2.png)<!-- -->
+![](WeekApril20Problems_files/figure-html/unnamed-chunk-11-2.png)<!-- -->
 
 ```r
 ggplot() + 
@@ -274,7 +239,7 @@ ggplot() +
 ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-![](WeekApril20Problems_files/figure-html/unnamed-chunk-13-3.png)<!-- -->
+![](WeekApril20Problems_files/figure-html/unnamed-chunk-11-3.png)<!-- -->
 
 ```r
 ggplot() + 
@@ -286,7 +251,7 @@ ggplot() +
 ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-![](WeekApril20Problems_files/figure-html/unnamed-chunk-13-4.png)<!-- -->
+![](WeekApril20Problems_files/figure-html/unnamed-chunk-11-4.png)<!-- -->
 
 ```r
 ggplot() + 
@@ -298,7 +263,7 @@ ggplot() +
 ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
-![](WeekApril20Problems_files/figure-html/unnamed-chunk-13-5.png)<!-- -->
+![](WeekApril20Problems_files/figure-html/unnamed-chunk-11-5.png)<!-- -->
 
 ```r
 ggplot() + 
@@ -309,7 +274,7 @@ ggplot() +
 ## Warning: Ignoring unknown parameters: se
 ```
 
-![](WeekApril20Problems_files/figure-html/unnamed-chunk-13-6.png)<!-- -->
+![](WeekApril20Problems_files/figure-html/unnamed-chunk-11-6.png)<!-- -->
 
   + Could not figure out how to get the blue line out of the legend for graph 4 
   + Could not figure out how to show standard error (?) for graph 6
