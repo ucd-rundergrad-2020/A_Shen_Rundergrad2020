@@ -1,0 +1,157 @@
+---
+libtitle: "Week5Problems"
+author: "Ashley"
+date: "5/9/2020"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## 10.5 Problems
+
+1. How can you tell if an object is a tibble? (Hint: try printing mtcars, which is a regular data frame).
+    + If you print a tibble it is labled 'A tibbble' where as a regular data frame is not labeled
+    + tibble prints the first ten rows whereas the data frame prints the whole set 
+  
+```{r}
+print(mtcars)
+print(diamonds)
+```
+
+2. Compare and contrast the following operations on a data.frame and equivalent tibble. What is different? Why might the default data frame behaviours cause you frustration?
+    + **I am not sure what is going on** 
+```{r}
+df <- data.frame(abc = 1, xyz = "a")
+df$x
+df[, "xyz"]
+df[, c("abc", "xyz")]
+```
+
+3. Practice referring to non-syntactic names in the following data frame by:
+    + Extracting the variable called 1.
+    + Plotting a scatterplot of 1 vs 2.
+    + Creating a new column called 3 which is 2 divided by 1.
+    + Renaming the columns to one, two and three.
+```{r}
+annoying <- tibble(
+  `1` = 1:10,
+  `2` = `1` * 2 + rnorm(length(`1`))
+)
+
+annoying$'1'
+
+annoying %>% ggplot(aes(x=`1`,y=`2`)) + geom_point()
+
+transmute(annoying, 
+            one = `1`,
+            two = `2`,
+             three = `2` / `1` )
+  
+```
+
+**I combined 3 and 4 because I couldn't figure out how to rename**
+
+4. What does tibble::enframe() do? When might you use it? 
+  + Converts vectors into tibbles 
+    + **I am not sure when you would use it**
+  
+```{r}
+enframe(c(a = 5, b = 7))
+```
+
+## 11.2.2 Problems
+
+1. What function would you use to read a file where fields were separated with
+“|”?
+```{r}
+
+read_delim("1 | 2 | 3 \n a | b | c", delim ="|")
+``` 
+4. Sometimes strings in a CSV file contain commas. To prevent them from causing problems they need to be surrounded by a quoting character, like " or '. By default, read_csv() assumes that the quoting character will be ". What argument to read_csv() do you need to specify to read the following text into a data frame?
+    + **I am not sure how to group 'a, b' into its own column**
+
+```{r}
+read_delim("x,y\n1,'a,b'",delim = "'")
+```
+
+5. Identify what is wrong with each of the following inline CSV files. What happens when you run the code?
+
+```{r}
+read_csv("a,b\n1,2,3\n4,5,6")
+## There are only two columns defined, but there are three values for each row, the last values for each row are dropped
+
+read_csv("a,b,c\n1,2\n1,2,3,4")
+## There are only two values in the first row so there is a "NA" in column c, and the extra value in the second row is dropped
+
+read_csv("a,b\n\"1")
+## An extra "? The b column is parsed as a character isnetead of a number and there is a NA in the second column. 
+
+read_csv("a,b\n1,2\na,b")
+## Confusing quotation marks
+
+read_csv("a;b\n1;3")
+## Only one column and one variable described 
+
+```
+
+## 11.3.5 Problems
+1. What are the most important arguments to locale()?
+    + You can define what you used as a decimal point in your data locale = locale(decimal_mark = ",")
+    + You can define grouping marks  locale = locale(grouping_mark = ".")
+    + For different languages  locale = locale(encoding = ",")
+  
+2. What happens if you try and set decimal_mark and grouping_mark to the same character? 
+     + There is an error in the locale and it says they must be different 
+```{r}
+## parse_number("123.456.789", locale = locale(grouping_mark = ".", decimal_mark = "."))
+```
+  + What happens to the default value of grouping_mark when you set decimal_mark to “,”? 
+    + The grouping mark becomes "."
+```{r}
+ parse_number("123.456.789", locale = locale(decimal_mark = ","))
+```
+
+  + What happens to the default value of decimal_mark when you set the grouping_mark to “.”? 
+    + The decimal mark becomes ","
+```{r}
+parse_number("123.456.789", locale = locale(grouping_mark = "."))
+parse_number("123,456,789", locale =locale(grouping_mark = "."))
+```
+
+3. I didn’t discuss the date_format and time_format options to locale(). What do they do? Construct an example that shows when they might be useful.
+    + They define how R parses date and time, you can change it to different countries
+  
+```{r}
+parse_date("1 janvier 2015", "%d %B %Y", locale = locale("fr"))
+
+```
+
+7. Generate the correct format string to parse each of the following dates and times:
+
+```{r}
+d1 <- "January 1, 2010"
+parse_date(d1, "%B %d, %Y")
+
+d2 <- "2015-Mar-07"
+parse_date(d2, "%Y-%b-%d")
+
+d3 <- "06-Jun-2017"
+parse_date(d3, "%d-%b-%Y")
+
+d4 <- c("August 19 (2015)", "July 1 (2015)")
+parse_date(d4, "%B %d (%Y)")
+
+d5 <- "12/30/14" # Dec 30, 2014
+parse_date(d5, "%m/%d/%y")
+
+t1 <- "1705"
+parse_time(t1, "%H%M")
+
+t2 <- "11:15:10.12 PM"
+parse_time(t2, "%H:%M:%S %p")
+```
